@@ -14,6 +14,13 @@ class get_user(BaseModel):
 class delete_user(BaseModel):
     id:int    
 
+class update_user(BaseModel):
+    id: int
+    name: str
+    email: str
+    phone: int  
+
+
 class Persone(BaseModel):
     name:str
     email:str

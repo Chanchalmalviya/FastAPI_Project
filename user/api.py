@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from .models import *
 from .pydantic_models import Persone,deleteuser,getdata,updateuser
-from .pydantic_models import user,get_user,delete_user
+from .pydantic_models import user,get_user,delete_user,update_user
 from passlib.context import CryptContext
 app = APIRouter()
 
@@ -43,7 +43,18 @@ async def delete_info(data:delete_user):
     user_obj = await User.get(id=data.id).delete()
     return user_obj
 
+@app.put("/update_info/")
+async def update_info(data:update_user):
 
+    user = await User.get(id=data.id)
+
+    if not user:
+        return {"status":False,"message":"user not Found"}
+    else:
+        user_obj = await User.filter(id=data.id).update(name=data.name,email=data.email,
+                                                    phone=data.phone)
+        print(user_obj)
+        return  {"status":True,"message":"User Update sucessfully"}
 
 
 

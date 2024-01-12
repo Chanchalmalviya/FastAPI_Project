@@ -1,10 +1,13 @@
 from fastapi import FastAPI
-from user import api as APIRouter
+from user import api as UserAPI
+from user import router as APIRouter
+
 from tortoise.contrib.fastapi import register_tortoise
 
 app =FastAPI()
 
-app.include_router(APIRouter.app)
+app.include_router(APIRouter.router)
+app.include_router(UserAPI.app, tags=["api"])
 
 JWT_SECRET = 'myjwtsecret'
 
